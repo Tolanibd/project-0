@@ -6,6 +6,22 @@ $(() => {
   const $gridCells = $('.wrapper div.box');
   const boyfriendSequence = [3, 4, 5, 8, 7, 6];
   let boyfriendIndex = 0;
+  const $result = $('.result');
+
+  const intervalId = setInterval(() => {
+    const boyfriendCellIndex = boyfriendSequence[boyfriendIndex];
+    boyfriendIndex = boyfriendIndex + 1;
+    if (boyfriendIndex > boyfriendSequence.length - 1){
+      boyfriendIndex = 0;
+    }
+    $gridCells.removeClass('boyfriend').eq(boyfriendCellIndex).addClass('boyfriend');
+
+    // if the boyfriend cell has a class of player
+    if ($gridCells.eq(boyfriendCellIndex).hasClass('player')){
+      console.log('youloose');
+      clearInterval(intervalId);
+    }
+  }, 500);
 
   $(document).on('keydown', (e) => {
     e.preventDefault();
@@ -40,17 +56,16 @@ $(() => {
     }
     $gridCells.removeClass('player').eq(index).addClass('player');
 
-  });
-
-  setInterval(() => {
-    const boyfriendCellIndex = boyfriendSequence[boyfriendIndex];
-    boyfriendIndex = boyfriendIndex + 1;
-    if (boyfriendIndex > boyfriendSequence.length - 1){
-      boyfriendIndex = 0;
+    // if index is 8, girl has won
+    if (index === 8){
+      $result.html('You Win');
     }
-    $gridCells.removeClass('boyfriend').eq(boyfriendCellIndex).addClass('boyfriend');
-
-    // change the boyfriend class
-  }, 500);
-
+    
+    if ($gridCells.eq(index).hasClass('boyfriend')){
+      console.log('loser');
+      $result.html('Girl he caught you!');
+      clearInterval(intervalId);
+      $(document).off('keydown');
+    }
+  });
 });
