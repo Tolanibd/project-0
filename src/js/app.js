@@ -16,17 +16,35 @@ $(() => {
     speed: 250
   }, {
     width: 5,
-    sequence: [],
+    sequence: [2, 5, 13, 9, 10, 13, 16, 17, 21, 23,20],
     speed: 200
   }];
 
   let roundIndex = 0;
   let currentRound = rounds[roundIndex];
 // this section will help pick the speed,width and the round it is set to current because I now have more than 1level
-  const $gridCells = $('.wrapper div.box');
+  const $board = $('.wrapper');
+  let $gridCells = null;
   let boyfriendIndex = 0;
   const $result = $('.result');
   let timerId = null;
+
+  function generateBoard() {
+    $board.empty();
+    const squaresToMake = currentRound.width * currentRound.width;
+
+    for (let i=0; i< squaresToMake; i++){
+      $board.append('<div class="box"></div>');
+    }
+
+    $gridCells = $('.wrapper div.box');
+
+    $gridCells.eq(0).addClass('player');
+
+  }
+
+  generateBoard();
+
 
 // Boyfriend section: setInterval starts the timer for the boyfriend and the sequency he will be moving in -1 because the grid counts from 0
   function startBoyfriend() {
@@ -67,13 +85,13 @@ $(() => {
         return false;
       }
       // if statements were added so the user cant go past a column and stopped at the end of the column
-      playerIndex +=3;
+      playerIndex += currentRound.width;
     } else if (e.keyCode=== 38){
       // up arrow
       if (playerIndex - currentRound.width < 0) {
         return false;
       }
-      playerIndex -=3;
+      playerIndex -= currentRound.width;
     }else if (e.keyCode=== 37){
       // left arrow
       if (playerIndex % currentRound.width <= 0){
@@ -90,6 +108,13 @@ $(() => {
       $(document).off('keydown');
       roundIndex++;
       currentRound = rounds[roundIndex];
+
+      // change the class on the wrapper
+      $board.removeClass(`round${roundIndex}`).addClass(`round${roundIndex}`);
+
+      // add in the extra divs
+      generateBoard();
+
       startBoyfriend();
       $(document).on('keydown', playerMove);
     }
@@ -103,7 +128,10 @@ $(() => {
       clearInterval(timerId);
       $(document).off('keydown');
     }
+    playerIndex =0;
   }
+  generateBoard();
+
 
   // ^ this sets the speed the bf is going at it is not speed because every level is diffrent
   $(document).on('keydown', playerMove);

@@ -1,21 +1,17 @@
  body {
   text-align: center;
-  margin-top: 100px;
+  margin-top: 10px;
   background: grey;
-  // background-image: url(../assets/images/bigger.jpg);
-  // background-position: center;
-  // background-repeat: no-repeat;
-  // position: relative;
 }
 h1 {
 
   font-family: 'Bungee Outline';
-  font-size: 80px;
+  font-size: 120px;
+  margin: 0 auto;
 }
 
 .wrapper {
   display: grid;
-  grid-template-columns: 200px 200px 200px;
   grid-gap: 10px;
   color: #444;
   // position: absolute;
@@ -24,14 +20,24 @@ h1 {
   background-image: url(../assets/images/bigger.jpg);
   background-position: center;
   background-repeat: no-repeat;
-  padding: 86px;
+  padding: 200px;
   width: 630px;
   // z-index: 10;
   // padding: 5px;
+  &.round0 {
+    grid-template-columns: 200px 200px 200px;
+  }
+  &.round1 {
+    grid-template-columns: 150px 150px 150px 150px;
+  }
+  &.round2 {
+    grid-template-columns: 120px 120px 120px 120px 120px;
+  }
 }
 
 .box {
-  background-color: #444;
+  background-color: #cdaeae;
+  opacity: 1.0;
   color: #fff;
   border-radius: 10px;
   padding: 60px;
@@ -39,21 +45,21 @@ h1 {
 
 
   &.player {
-    // background-color: pink;
     background-image: url(../assets/images/gf2.jpg);
     background-repeat: no-repeat;
   }
 
   &.boyfriend{
-    background-color: purple;
+    background-image: url(../assets/images/asap.jpg);
+    background-repeat: no-repeat;
   }
 
 }
 
 
-.boxlast-child {
+.box last-child {
 
   page-break-after: 4px;
-   background: #ff0000; background: #ff0000;
+  background-color: #ff0000;
 
 }
